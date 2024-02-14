@@ -6,5 +6,7 @@
     <string name="network_error_message_text">Please try again.</string>
     <string name="repeatable_dialog_error_message">Let\'s try again.</string>
     <string name="dialog_positive_button">Okay</string>
+    <string name="splash_screen_button">Create Account</string>
+    <string name="splash_screen_message">Don’t have an account? Sign Up</string>
 
 </resources>
