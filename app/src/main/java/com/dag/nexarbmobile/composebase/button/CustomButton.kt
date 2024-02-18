@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,11 +61,11 @@ private fun CustomButtonInside(
     Button(
         modifier = modifier,
         onClick = onClick,
-        border = if (buttonType == ButtonType.PrimaryButton) border else BorderStroke(0.dp,Color.Transparent),
+        border = if (buttonType == ButtonType.ColorfulButton) BorderStroke(0.dp,Color.Transparent) else border  ,
         colors = ButtonDefaults.buttonColors(backgroundColor =
         if(buttonType == ButtonType.ColorfulButton) Color.Transparent else color),
         elevation = ButtonDefaults.elevation(0.dp),
-        shape = RoundedCornerShape(7.dp)
+        shape = RoundedCornerShape(32.dp)
     ) {
         content()
     }
@@ -78,6 +79,25 @@ fun CustomButtonPreview(){
             onClick = {},
             color = MaterialTheme.colors.secondary,
             border = BorderStroke(1.dp, Color.Black)
+        ) {
+            Text(
+                text = "Get Started",
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+@Preview
+fun CustomSecondaryButtonPreview(){
+    NexArbMobileTheme {
+        CustomButton(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 64.dp),
+            onClick = {},
+            buttonType = ButtonType.SecondaryButton,
+            color = Color.Transparent,
+            border = BorderStroke(4.dp, MaterialTheme.colors.secondary),
         ) {
             Text(
                 text = "Get Started",

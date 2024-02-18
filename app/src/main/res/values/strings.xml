@@ -8,5 +8,6 @@
     <string name="dialog_positive_button">Okay</string>
     <string name="splash_screen_button">Create Account</string>
     <string name="splash_screen_message">Don’t have an account? Sign Up</string>
+    <string name="intro_screen_skip_button">Skip</string>
 
 </resources>

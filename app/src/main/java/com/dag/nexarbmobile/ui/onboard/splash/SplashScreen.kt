@@ -1,11 +1,8 @@
 package com.dag.nexarbmobile.ui.onboard.splash
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +21,6 @@ import com.dag.nexarbmobile.R
 import com.dag.nexarbmobile.composebase.button.CustomButton
 import com.dag.nexarbmobile.composebase.navcontroller.NavScreen
 import com.dag.nexarbmobile.data.types.ButtonType
-import com.dag.nexarbmobile.ui.home.HomeSurface
 import com.dag.nexarbmobile.ui.onboard.OnboardPreview
 import com.dag.nexarbmobile.ui.onboard.OnboardSurface
 
