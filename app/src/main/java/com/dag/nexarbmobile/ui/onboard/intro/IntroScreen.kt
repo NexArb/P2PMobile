@@ -1,6 +1,5 @@
 package com.dag.nexarbmobile.ui.onboard.intro
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,13 +7,17 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dag.nexarbmobile.R
 import com.dag.nexarbmobile.composebase.NexarbPreview
 import com.dag.nexarbmobile.composebase.button.CustomButton
+import com.dag.nexarbmobile.composebase.navcontroller.NavScreen
 import com.dag.nexarbmobile.data.types.ButtonType
 
 @Composable
@@ -30,6 +34,13 @@ fun IntroScreen(
     navController: NavController,
     viewModel: IntroVM = viewModel()
 ) {
+    val viewState by viewModel.viewState.observeAsState(initial = viewModel.FIRST_STATE)
+    when(viewState){
+        IntroVS.StateFinished -> {
+            navController.navigate(NavScreen.LoginScreen.route)
+        }
+    }
+    val introVS: IntroVS.State = viewState as IntroVS.State
     // Background
     Image(
         painter = BitmapPainter(image = ImageBitmap.imageResource(id = R.drawable.intro_backgorund)),
@@ -62,24 +73,33 @@ fun IntroScreen(
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 Text(
-                    text = "Title",
-                    style = MaterialTheme.typography.h1
+                    text = stringResource(id = introVS.title),
+                    style = MaterialTheme.typography.h1,
+                    textAlign = TextAlign.Center
                 )
                 Text(
-                    text = "Caption",
-                    style = MaterialTheme.typography.caption
+                    text = stringResource(id = introVS.subtext),
+                    style = MaterialTheme.typography.caption,
+                    textAlign = TextAlign.Center
                 )
             }
             CustomButton(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 64.dp),
-                color = MaterialTheme.colors.primary,
-                border = BorderStroke(2.dp, MaterialTheme.colors.secondary),
-                buttonType = ButtonType.SecondaryButton,
-                onClick = {}
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp),
+                buttonType = introVS.buttonType,
+                onClick = {
+                    viewModel.changeState()
+                }
             ) {
                 Text(
-                    text = "Next Step",
-                    style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.secondary)
+                    text = stringResource(id = introVS.buttonText),
+                    style = MaterialTheme.typography.body2.copy(
+                        color = if(introVS.buttonType == ButtonType.SecondaryButton)
+                                MaterialTheme.colors.secondary else Color.White
+
+                    ),
+                    textAlign = TextAlign.Center
                 )
             }
         }

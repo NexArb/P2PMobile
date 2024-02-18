@@ -4,4 +4,5 @@ enum class ButtonType {
     ColorfulButton,
     PrimaryButton,
     SecondaryButton,
+    Custom
 }

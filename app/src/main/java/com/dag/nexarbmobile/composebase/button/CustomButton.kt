@@ -24,7 +24,6 @@ import com.dag.nexarbmobile.ui.theme.NexArbMobileTheme
 fun CustomButton(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colors.secondary,
-    border: BorderStroke = BorderStroke(1.dp, color),
     onClick: () -> Unit,
     buttonType: ButtonType = ButtonType.PrimaryButton,
     content: @Composable RowScope.() -> Unit
@@ -33,14 +32,17 @@ fun CustomButton(
     if (buttonType == ButtonType.ColorfulButton) {
         boxModifier = boxModifier.background(ColorfulButtonBackground)
     }
-
+    val buttonColor:Color = if (buttonType == ButtonType.PrimaryButton) MaterialTheme.colors.secondary
+    else if (buttonType == ButtonType.SecondaryButton) Color.Transparent else color
+    val buttonBorder:Color = if (buttonType == ButtonType.PrimaryButton) Color.Transparent
+    else if (buttonType == ButtonType.SecondaryButton) MaterialTheme.colors.secondary else color
     Box(
         modifier = boxModifier,
     ) {
         CustomButtonInside(
             modifier = modifier,
-            color = color,
-            border = border,
+            color = buttonColor,
+            border = BorderStroke(1.dp, buttonBorder),
             onClick = onClick,
             content = content ,
             buttonType = buttonType
@@ -78,7 +80,6 @@ fun CustomButtonPreview(){
         CustomButton(
             onClick = {},
             color = MaterialTheme.colors.secondary,
-            border = BorderStroke(1.dp, Color.Black)
         ) {
             Text(
                 text = "Get Started",
@@ -97,7 +98,6 @@ fun CustomSecondaryButtonPreview(){
             onClick = {},
             buttonType = ButtonType.SecondaryButton,
             color = Color.Transparent,
-            border = BorderStroke(4.dp, MaterialTheme.colors.secondary),
         ) {
             Text(
                 text = "Get Started",
@@ -115,7 +115,6 @@ fun CustomButtonColorfulPreview(){
             onClick = {},
             color = MaterialTheme.colors.secondary,
             buttonType = ButtonType.ColorfulButton,
-            border = BorderStroke(1.dp, Color.Transparent)
         ) {
             Text(
                 text = "Get Started",
