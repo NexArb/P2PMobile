@@ -14,6 +14,8 @@ import com.dag.nexarbmobile.composebase.appbar.CustomAppbar
 import com.dag.nexarbmobile.composebase.bottomnavigation.CustomBottomNavigation
 import com.dag.nexarbmobile.localdatastorage.preferencesdatastore.PreferencesDataStore
 import com.dag.nexarbmobile.ui.home.HomeActivity
+import com.dag.nexarbmobile.ui.onboard.intro.IntroScreen
+import com.dag.nexarbmobile.ui.onboard.intro.IntroVM
 import com.dag.nexarbmobile.ui.onboard.splash.SplashScreen
 import com.dag.nexarbmobile.ui.onboard.splash.SplashVM
 
@@ -47,9 +49,16 @@ fun NavGraph(
             navController = navController,
             startDestination = startDestination
         ) {
-            composable(NavScreen.SplashScreen.route) {
+            composable(NavScreen.WelcomeScreen.route) {
                 val viewModel = hiltViewModel<SplashVM>()
                 SplashScreen(
+                    navController = navController,
+                    viewModel = viewModel
+                )
+            }
+            composable(NavScreen.IntroScreen.route) {
+                val viewModel = hiltViewModel<IntroVM>()
+                IntroScreen(
                     navController = navController,
                     viewModel = viewModel
                 )

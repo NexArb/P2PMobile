@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -37,10 +38,15 @@ fun IntroScreen(
     val viewState by viewModel.viewState.observeAsState(initial = viewModel.FIRST_STATE)
     when(viewState){
         IntroVS.StateFinished -> {
+            LaunchedEffect(Unit) {
+                viewModel.saveIntroFinished()
+            }
+        }
+        IntroVS.NavigateUserPage -> {
             navController.navigate(NavScreen.LoginScreen.route)
         }
     }
-    val introVS: IntroVS.State = viewState as IntroVS.State
+    val introVS: IntroVS.State? = viewState as? IntroVS.State
     // Background
     Image(
         painter = BitmapPainter(image = ImageBitmap.imageResource(id = R.drawable.intro_backgorund)),
@@ -54,7 +60,9 @@ fun IntroScreen(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        IntroScreenHeader()
+        IntroScreenHeader(onClick = {
+            viewModel.viewState.postValue(IntroVS.StateFinished)
+        })
         IntroScreenTitle(title = R.drawable.intro1)
         Column(
             modifier = Modifier
@@ -65,42 +73,44 @@ fun IntroScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(fraction = 0.5f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceAround
-            ) {
-                Text(
-                    text = stringResource(id = introVS.title),
-                    style = MaterialTheme.typography.h1,
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = stringResource(id = introVS.subtext),
-                    style = MaterialTheme.typography.caption,
-                    textAlign = TextAlign.Center
-                )
-            }
-            CustomButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 64.dp),
-                buttonType = introVS.buttonType,
-                onClick = {
-                    viewModel.changeState()
+            introVS?.let {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(fraction = 0.5f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
+                    Text(
+                        text = stringResource(id = it.title),
+                        style = MaterialTheme.typography.h1,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = stringResource(id = it.subtext),
+                        style = MaterialTheme.typography.caption,
+                        textAlign = TextAlign.Center
+                    )
                 }
-            ) {
-                Text(
-                    text = stringResource(id = introVS.buttonText),
-                    style = MaterialTheme.typography.body2.copy(
-                        color = if(introVS.buttonType == ButtonType.SecondaryButton)
+                CustomButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 64.dp),
+                    buttonType = it.buttonType,
+                    onClick = {
+                        viewModel.changeState()
+                    }
+                ) {
+                    Text(
+                        text = stringResource(id = introVS.buttonText),
+                        style = MaterialTheme.typography.body2.copy(
+                            color = if(introVS.buttonType == ButtonType.SecondaryButton)
                                 MaterialTheme.colors.secondary else Color.White
 
-                    ),
-                    textAlign = TextAlign.Center
-                )
+                        ),
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
     }
@@ -123,12 +133,14 @@ private fun IntroScreenTitle(
 }
 
 @Composable
-private fun IntroScreenHeader() {
+private fun IntroScreenHeader(
+    onClick: ()->Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End
     ) {
-        TextButton(onClick = {}) {
+        TextButton(onClick = onClick) {
             Text(
                 text = stringResource(id = R.string.intro_screen_skip_button),
                 style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.secondary)

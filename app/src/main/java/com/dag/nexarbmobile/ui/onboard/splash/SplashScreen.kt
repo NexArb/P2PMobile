@@ -5,6 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
@@ -18,9 +22,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.dag.nexarbmobile.R
+import com.dag.nexarbmobile.base.ui.base.NexarbViewState
 import com.dag.nexarbmobile.composebase.button.CustomButton
 import com.dag.nexarbmobile.composebase.navcontroller.NavScreen
 import com.dag.nexarbmobile.data.types.ButtonType
+import com.dag.nexarbmobile.localdatastorage.preferencesdatastore.PreferencesDataStoreKeys
 import com.dag.nexarbmobile.ui.onboard.OnboardPreview
 import com.dag.nexarbmobile.ui.onboard.OnboardSurface
 
@@ -29,6 +35,10 @@ fun SplashScreen(
     navController: NavHostController,
     viewModel: SplashVM = viewModel()
 ) {
+    val userState by viewModel.viewState.observeAsState()
+    LaunchedEffect("read_user_state"){
+        viewModel.readLoginState(navController)
+    }
     OnboardSurface {
         Box(
             modifier = Modifier
@@ -60,24 +70,26 @@ fun SplashScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.padding(horizontal = 32.dp, vertical = 64.dp)
                 ) {
-                    CustomButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 64.dp),
-                        buttonType = ButtonType.ColorfulButton,
-                        onClick = {
-                            navController.navigate(NavScreen.RegisterScreen.route)
+                    if (userState == SplashVS.Loading){
+                        CustomButton(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 64.dp),
+                            buttonType = ButtonType.ColorfulButton,
+                            onClick = {
+                                navController.navigate(NavScreen.RegisterScreen.route)
+                            }
+                        ) {
+                            Text(stringResource(id = R.string.splash_screen_button))
                         }
-                    ) {
-                        Text(stringResource(id = R.string.splash_screen_button))
+                        Spacer(modifier = Modifier.size(16.dp))
+                        Text(
+                            stringResource(id=R.string.splash_screen_message),
+                            modifier = Modifier.clickable {
+                                navController.navigate(NavScreen.RegisterScreen.route)
+                            },
+                        )
                     }
-                    Spacer(modifier = Modifier.size(16.dp))
-                    Text(
-                        stringResource(id=R.string.splash_screen_message),
-                        modifier = Modifier.clickable {
-                            navController.navigate(NavScreen.RegisterScreen.route)
-                        },
-                    )
                 }
 
             }

@@ -2,8 +2,8 @@ package com.dag.nexarbmobile.composebase.navcontroller
 
 sealed class NavScreen(val route:String) {
 
-    object SplashScreen : NavScreen("splash_screen")
     object WelcomeScreen : NavScreen("welcome_screen")
+    object IntroScreen : NavScreen("intro_screen")
     object LoginScreen:NavScreen("login_screen")
     object RegisterScreen:NavScreen("register_screen")
     object HomeScreen:NavScreen("home_screen")

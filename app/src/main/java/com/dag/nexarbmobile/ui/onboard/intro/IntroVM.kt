@@ -3,9 +3,15 @@ package com.dag.nexarbmobile.ui.onboard.intro
 import com.dag.nexarbmobile.R
 import com.dag.nexarbmobile.base.ui.base.NexarbViewModel
 import com.dag.nexarbmobile.data.types.ButtonType
+import com.dag.nexarbmobile.localdatastorage.preferencesdatastore.PreferencesDataStore
+import com.dag.nexarbmobile.localdatastorage.preferencesdatastore.PreferencesDataStoreKeys
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class IntroVM @Inject constructor(): NexarbViewModel() {
+@HiltViewModel
+class IntroVM @Inject constructor(
+    var preferencesDataStore: PreferencesDataStore,
+): NexarbViewModel() {
 
     private var currentState = 1;
 
@@ -33,6 +39,11 @@ class IntroVM @Inject constructor(): NexarbViewModel() {
         R.string.intro_screen_state_button_last_text,
         ButtonType.PrimaryButton
     )
+
+    suspend fun saveIntroFinished() {
+        preferencesDataStore.write(PreferencesDataStoreKeys.FIRST_LOGIN,true)
+        viewState.postValue(IntroVS.NavigateUserPage)
+    }
 
     fun changeState() {
         currentState += 1;

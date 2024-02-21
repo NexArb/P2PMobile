@@ -6,4 +6,5 @@ import com.dag.nexarbmobile.data.types.ButtonType
 sealed class IntroVS : NexarbViewState {
     class State(val title: Int, val subtext: Int, val buttonText: Int, val buttonType:ButtonType) : NexarbViewState
     object StateFinished : NexarbViewState
+    object NavigateUserPage : NexarbViewState
 }
