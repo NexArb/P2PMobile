@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">NexArbMobile</string>
 
     <string name="network_error_message_title">Network Error</string>
     <string name="network_error_message_text">Please try again.</string>
     <string name="repeatable_dialog_error_message">Let\'s try again.</string>
     <string name="dialog_positive_button">Okay</string>
-    <string name="splash_screen_button">Create Account</string>
+    <string name="splash_screen_button">Start App</string>
     <string name="splash_screen_message">Don’t have an account? Sign Up</string>
     <string name="intro_screen_skip_button">Skip</string>
     <string name="intro_screen_state1_title">Welcome to NexArb</string>
@@ -18,5 +18,11 @@
     <string name="intro_screen_state4_text">Our top-notch security features will keep you completely safe.</string>
     <string name="intro_screen_state_button_text">Next Step</string>
     <string name="intro_screen_state_button_last_text">Let\'s Get Started</string>
+    <string name="login_screen_title" translatable="false">Welcome Back</string>
+    <string name="login_screen_email_placeholder">Email Address</string>
+    <string translatable="false" name="login_screen_password_placeholder">Password</string>
+    <string name="login_screen_forgot_password">Forgot your password?</string>
+    <string name="login_screen_link_to_register">Don’t have an account? Sign Up</string>
+    <string translatable="false" name="login_screen_button_text" tools:ignore="ExtraTranslation">Sign in</string>
 
 </resources>

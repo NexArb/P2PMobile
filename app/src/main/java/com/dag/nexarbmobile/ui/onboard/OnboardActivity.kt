@@ -3,11 +3,13 @@ package com.dag.nexarbmobile.ui.onboard
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import com.dag.nexarbmobile.composebase.navcontroller.NavGraph
 import com.dag.nexarbmobile.composebase.navcontroller.NavScreen
@@ -46,12 +48,17 @@ class OnboardActivity : ComponentActivity() {
 @Composable
 fun OnboardSurface(
     backgroundColor: Color = Color.White,
+    background: Brush? = null,
+    modifier: Modifier,
     content:@Composable ()->Unit
 ) {
+    var internalModifier = modifier.fillMaxSize()
+    background?.let {
+        internalModifier = modifier.background(it)
+    }
     NexArbMobileTheme {
         Surface(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = internalModifier,
             color = backgroundColor
         ){
             content()
@@ -61,7 +68,7 @@ fun OnboardSurface(
 
 @Composable
 fun OnboardPreview(content: @Composable () -> Unit){
-    OnboardSurface {
+    OnboardSurface(modifier = Modifier) {
         content()
     }
 }

@@ -18,6 +18,8 @@ import com.dag.nexarbmobile.ui.onboard.intro.IntroScreen
 import com.dag.nexarbmobile.ui.onboard.intro.IntroVM
 import com.dag.nexarbmobile.ui.onboard.splash.SplashScreen
 import com.dag.nexarbmobile.ui.onboard.splash.SplashVM
+import com.dag.nexarbmobile.ui.onboard.userop.register.RegisterScreen
+import com.dag.nexarbmobile.ui.onboard.userop.register.RegisterVM
 
 @Composable
 fun NavGraph(
@@ -59,6 +61,13 @@ fun NavGraph(
             composable(NavScreen.IntroScreen.route) {
                 val viewModel = hiltViewModel<IntroVM>()
                 IntroScreen(
+                    navController = navController,
+                    viewModel = viewModel
+                )
+            }
+            composable(NavScreen.RegisterScreen.route) {
+                val viewModel = hiltViewModel<RegisterVM>()
+                RegisterScreen(
                     navController = navController,
                     viewModel = viewModel
                 )

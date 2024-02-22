@@ -17,13 +17,13 @@ private val ButtonColorVariant1 = Color(0xFF10E9A2)
 private val ButtonColorVariant2 = Color(0xFF429FD6)
 private val ButtonColorVariant3 = Color(0xFF9749FB)
 
-val Background = Brush.verticalGradient(
+val Background = Brush.horizontalGradient(
     colors = listOf(
         BackgroundColor,
         BackgroundColorVariant1,
         BackgroundColorVariant2
     ),
-    startY = 400f
+    startX = 10f
 )
 
 val ColorfulButtonBackground = Brush.horizontalGradient(

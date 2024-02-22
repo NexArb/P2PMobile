@@ -39,7 +39,7 @@ fun SplashScreen(
     LaunchedEffect("read_user_state"){
         viewModel.readLoginState(navController)
     }
-    OnboardSurface {
+    OnboardSurface(modifier = Modifier) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -77,7 +77,7 @@ fun SplashScreen(
                                 .padding(horizontal = 64.dp),
                             buttonType = ButtonType.ColorfulButton,
                             onClick = {
-                                navController.navigate(NavScreen.RegisterScreen.route)
+                                navController.navigate(NavScreen.LoginScreen.route)
                             }
                         ) {
                             Text(stringResource(id = R.string.splash_screen_button))
