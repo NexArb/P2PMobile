@@ -1,6 +1,7 @@
 package com.dag.nexarbmobile.ui.onboard.userop.wallet.usecase
 
 import android.content.SharedPreferences
+import com.solana.publickey.SolanaPublicKey
 import javax.inject.Inject
 
 sealed class WalletConnection
@@ -8,14 +9,12 @@ sealed class WalletConnection
 object NotConnected : WalletConnection()
 
 data class Connected(
-    val publicKey:SolanaPublicKey,
+    val publicKey: SolanaPublicKey,
     val accountLabel: String,
     val authToken: String
 ): WalletConnection()
 
-class PersistenceUseCase @Inject constructor(
-    private val sharedPreferences: SharedPreferences
-) {
+class PersistenceUseCase @Inject constructor() {
 
     private var connection: WalletConnection = NotConnected
 
@@ -23,9 +22,9 @@ class PersistenceUseCase @Inject constructor(
         return when(connection) {
             is Connected -> connection
             is NotConnected -> {
-                val key = sharedPreferences.getString(PUBKEY_KEY, "")
-                val accountLabel = sharedPreferences.getString(ACCOUNT_LABEL, "") ?: ""
-                val token = sharedPreferences.getString(AUTH_TOKEN_KEY, "")
+                val key = "aa"
+                val accountLabel = ""
+                val token = "aaa"
 
                 val newConn = if (key.isNullOrEmpty() || token.isNullOrEmpty()) {
                     NotConnected
@@ -39,21 +38,21 @@ class PersistenceUseCase @Inject constructor(
     }
 
     fun persistConnection(pubKey: SolanaPublicKey, accountLabel: String, token: String) {
-        sharedPreferences.edit().apply {
+        /*sharedPreferences.edit().apply {
             putString(PUBKEY_KEY, pubKey.base58())
             putString(ACCOUNT_LABEL, accountLabel)
             putString(AUTH_TOKEN_KEY, token)
-        }.apply()
+        }.apply()*/
 
         connection = Connected(pubKey, accountLabel, token)
     }
 
     fun clearConnection() {
-        sharedPreferences.edit().apply {
+        /*sharedPreferences.edit().apply {
             putString(PUBKEY_KEY, "")
             putString(ACCOUNT_LABEL, "")
             putString(AUTH_TOKEN_KEY, "")
-        }.apply()
+        }.apply()*/
 
         connection = NotConnected
     }
