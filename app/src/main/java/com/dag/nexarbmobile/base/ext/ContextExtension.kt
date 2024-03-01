@@ -1,7 +1,9 @@
 package com.dag.nexarbmobile.base.ext
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.net.ConnectivityManager
+import androidx.activity.ComponentActivity
 import java.lang.Exception
 import java.net.NetworkInterface
 import java.util.*
@@ -45,4 +47,10 @@ private fun extractIpAddress(sAddr:String):String{
     }else{
         sAddr.substring(0,delimeter).toUpperCase(Locale.ROOT)
     }
+}
+
+fun Context.getActivity(): ComponentActivity? = when (this) {
+    is ComponentActivity -> this
+    is ContextWrapper -> baseContext.getActivity()
+    else -> null
 }

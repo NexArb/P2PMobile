@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dag.nexarbmobile.base.NexarbActivityListener
+import com.dag.nexarbmobile.base.NexarbApplication
 import com.dag.nexarbmobile.composebase.NexarbSurface
 import com.dag.nexarbmobile.composebase.appbar.CustomAppbar
 import com.dag.nexarbmobile.composebase.bottomnavigation.CustomBottomNavigation
@@ -22,12 +24,13 @@ import com.dag.nexarbmobile.ui.onboard.userop.register.RegisterScreen
 import com.dag.nexarbmobile.ui.onboard.userop.register.RegisterVM
 import com.dag.nexarbmobile.ui.onboard.userop.wallet.WalletScreen
 import com.dag.nexarbmobile.ui.onboard.userop.wallet.WalletVM
+import com.solana.mobilewalletadapter.clientlib.ActivityResultSender
 
 @Composable
 fun NavGraph(
     startDestination: String = NavScreen.WelcomeScreen.route,
     isOnboard: Boolean = false,
-    preferencesDataStore: PreferencesDataStore
+    activityResulSender: ActivityResultSender
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -78,7 +81,8 @@ fun NavGraph(
                 val viewModel = hiltViewModel<WalletVM>()
                 WalletScreen(
                     navController = navController,
-                    viewModel = viewModel
+                    viewModel = viewModel,
+                    activityResultSender = activityResulSender
                 )
             }
             composable(NavScreen.MainActivity.route){

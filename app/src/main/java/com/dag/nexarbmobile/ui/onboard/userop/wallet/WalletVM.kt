@@ -14,9 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletVM @Inject constructor(
-
-): NexarbViewModel() {
+class WalletVM @Inject constructor(): NexarbViewModel() {
 
     @Inject
     lateinit var walletAdapter: MobileWalletAdapter

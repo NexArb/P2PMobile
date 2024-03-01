@@ -26,7 +26,7 @@ fun CustomAppbar() {
             ) {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    style = MaterialTheme.typography.h1.copy(color = Color.Black)
+                    style = MaterialTheme.typography.h1
                 )
             }
         },
@@ -38,7 +38,7 @@ fun CustomAppbar() {
 
             }
         },
-        backgroundColor = Color.White,
+        backgroundColor = Color.Transparent,
         actions = {
             Row(
                 modifier = Modifier

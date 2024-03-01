@@ -30,6 +30,7 @@ fun RegisterScreen(
     navController: NavController,
     viewModel: RegisterVM = viewModel()
 ) {
+
     UserOpWrapper {
         Column(
             modifier = Modifier
@@ -47,22 +48,14 @@ fun RegisterScreen(
 
                     }
                 )
-                Column(horizontalAlignment = Alignment.End) {
-                    NexarbTextbox(
-                        modifier = Modifier.padding(top = 16.dp),
-                        placeholder = R.string.login_screen_password_placeholder,
-                        onValueChange = {
+                NexarbTextbox(
+                    modifier = Modifier.padding(top = 16.dp),
+                    placeholder = R.string.login_screen_password_placeholder,
+                    onValueChange = {
 
-                        }
-                    )
-                    TextButton(onClick = {}) {
-                        Text(
-                            text = stringResource(id = R.string.login_screen_forgot_password),
-                            style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.secondary),
-                            textAlign = TextAlign.End
-                        )
                     }
-                }
+                )
+
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -75,11 +68,11 @@ fun RegisterScreen(
                     onClick = {
                     }
                 ) {
-                    Text(stringResource(id = R.string.login_screen_button_text))
+                    Text(stringResource(id = R.string.register_screen_button_text))
                 }
                 Spacer(modifier = Modifier.size(16.dp))
                 Text(
-                    stringResource(id = R.string.login_screen_link_to_register),
+                    stringResource(id = R.string.register_screen_link_to_login),
                     modifier = Modifier
                         .padding(bottom = 16.dp)
                         .clickable {
