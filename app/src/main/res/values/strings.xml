@@ -27,4 +27,6 @@
     <string name="register_screen_button_text">Sign Up</string>
     <string translatable="false" name="login_screen_button_text" tools:ignore="ExtraTranslation">Sign in</string>
     <string name="wallet_connect_text">Connect Your Wallet</string>
+    <string name="home_screen_transaction_title">Transactions</string>
+    <string name="see_more">See More</string>
 </resources>
