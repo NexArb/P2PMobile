@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.dag.nexarbmobile.base.ext.lifeCycle
+import com.dag.nexarbmobile.base.ui.base.NexarbActivity
 import dagger.hilt.android.HiltAndroidApp
 import java.util.*
 import javax.inject.Inject
@@ -16,6 +17,7 @@ class NexarbApplication : MultiDexApplication(), Observer {
     @Inject
     lateinit var nexarbActivityListener: NexarbActivityListener
     private var currentActivity: CanDropSession? = null
+    lateinit var currentNexarbActivity: NexarbActivity<*,*>
 
     private var sessionShouldEnd = false
 
@@ -30,13 +32,16 @@ class NexarbApplication : MultiDexApplication(), Observer {
         super.onCreate()
         appInstance = this
         ApplicationSessionManager.addObserver(this)
-        val NexarbAppLifeCycle = this.lifeCycle(
+        val nexarbAppLifeCycle = this.lifeCycle(
             activityCreated = {
                 // All Activities Portrait
                 it?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
             },
             activityResumed = {
+                if (it is NexarbActivity<*,*>){
+                    currentNexarbActivity = it
+                }
                 if (it is CanDropSession) {
                     currentActivity = it
                     if (sessionShouldEnd) {
@@ -52,7 +57,7 @@ class NexarbApplication : MultiDexApplication(), Observer {
             }
         )
         registerActivityLifecycleCallbacks(nexarbActivityListener)
-        registerActivityLifecycleCallbacks(NexarbAppLifeCycle)
+        registerActivityLifecycleCallbacks(nexarbAppLifeCycle)
     }
 
     override fun attachBaseContext(base: Context?) {

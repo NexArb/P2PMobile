@@ -16,6 +16,7 @@ val CustomButtonInnerSelectedColor = Color(0xFFD3D3D3).copy(alpha = 0.5f)
 private val ButtonColorVariant1 = Color(0xFF10E9A2)
 private val ButtonColorVariant2 = Color(0xFF429FD6)
 private val ButtonColorVariant3 = Color(0xFF9749FB)
+val PhantomWalletColor = Color(0xFF9786EA)
 
 val Background = Brush.horizontalGradient(
     colors = listOf(

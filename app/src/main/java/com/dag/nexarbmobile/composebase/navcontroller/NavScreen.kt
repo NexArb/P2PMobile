@@ -4,6 +4,7 @@ sealed class NavScreen(val route:String) {
 
     object WelcomeScreen : NavScreen("welcome_screen")
     object IntroScreen : NavScreen("intro_screen")
+    object WalletScreen : NavScreen("wallet_connection")
     object LoginScreen:NavScreen("login_screen")
     object RegisterScreen:NavScreen("register_screen")
     object HomeScreen:NavScreen("home_screen")
