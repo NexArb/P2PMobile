@@ -31,4 +31,6 @@
     <string name="see_more">See More</string>
     <string name="listing_screen_buy_button_text">Buy</string>
     <string name="listing_screen_offer_button_text">Offer</string>
+    <string name="add_listing_screen_add_button">Offer Listing</string>
+
 </resources>
